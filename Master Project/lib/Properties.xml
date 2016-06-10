@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<properties>
+	<data>
+		<caching_path>solutions.txt</caching_path>
+		<max_threads>15</max_threads>
+		<solving_algorithm>DFS</solving_algorithm>
+		<generate_algorithm>myMaze</generate_algorithm>
+	</data>
+</properties>
