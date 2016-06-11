@@ -1,4 +1,6 @@
-package view;
+package cliDisplays;
+
+import view.View;
 
 
 /**

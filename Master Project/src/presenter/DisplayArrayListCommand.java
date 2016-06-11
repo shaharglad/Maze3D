@@ -1,10 +1,10 @@
 package presenter;
 
+import cliDisplays.DisplayCross;
+import cliDisplays.DisplaySolution;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import model.Model;
-import view.DisplayCross;
-import view.DisplaySolution;
 import view.View;
 
 public class DisplayArrayListCommand extends CommonViewCommand {

@@ -1,9 +1,9 @@
 package presenter;
 
+import cliDisplays.DisplayCross;
+import cliDisplays.DisplayMaze;
 import algorithms.search.SearchableMaze3dAdapter;
 import model.Model;
-import view.DisplayCross;
-import view.DisplayMaze;
 import view.View;
 
 /**

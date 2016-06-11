@@ -1,6 +1,9 @@
-package view;
+package cliDisplays;
 
 import java.io.IOException;
+
+import view.MyView;
+import view.View;
 
 /**
  * 

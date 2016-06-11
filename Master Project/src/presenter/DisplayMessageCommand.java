@@ -1,7 +1,7 @@
 package presenter;
 
+import cliDisplays.DisplayMessage;
 import model.Model;
-import view.DisplayMessage;
 import view.View;
 
 public class DisplayMessageCommand extends CommonViewCommand {

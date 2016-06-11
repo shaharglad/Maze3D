@@ -6,6 +6,8 @@ import java.io.Writer;
 import java.util.Observable;
 import java.util.Observer;
 
+import cliDisplays.DisplayType;
+
 /**
  * 
  * @author Shahar & Bar

@@ -1,7 +1,7 @@
 package presenter;
 
+import cliDisplays.DisplayDir;
 import model.Model;
-import view.DisplayDir;
 import view.View;
 
 /**

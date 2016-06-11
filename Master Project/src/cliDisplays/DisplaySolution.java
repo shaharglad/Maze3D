@@ -1,7 +1,9 @@
-package view;
+package cliDisplays;
 
 import java.io.IOException;
 
+import view.MyView;
+import view.View;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import algorithms.search.State;

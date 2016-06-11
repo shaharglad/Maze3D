@@ -1,8 +1,8 @@
 package presenter;
 
+import cliDisplays.DisplayCross;
+import cliDisplays.DisplayLong;
 import model.Model;
-import view.DisplayCross;
-import view.DisplayLong;
 import view.View;
 
 /**
