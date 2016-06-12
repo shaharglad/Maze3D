@@ -80,6 +80,18 @@ public class MyModel extends Observable implements Model {
 	public Properties getProperties() {
 		return properties;
 	}
+	
+	/**
+	 * This method will set the properties file.
+	 * @param path - The path of the properties file.
+	 */
+	@Override
+	public void setProperties(String path) {
+		this.properties = new Properties(path);
+		obj = (String) "\nProperties Sucsessfuly Loaded\n" ;
+		setChanged();
+		notifyObservers("display_message");
+	}
 
 	/**
 	 * This method will generate searchableMaze3DAdapter using the following parameters.
@@ -115,7 +127,7 @@ public class MyModel extends Observable implements Model {
 					mazes.put(name, maze);
 				}
 				
-				obj = (String) "\nMaze " + name + " is ready\n";
+				obj = (String) "\nMaze " + name + " is ready!!!\n";
 				setChanged();
 				notifyObservers("display_message");
 				return maze;				

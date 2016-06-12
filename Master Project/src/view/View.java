@@ -15,6 +15,6 @@ import cliDisplays.DisplayType;
 public interface View {
 	public void start();
 	public void display (Object obj,DisplayType d);
-	public Writer getOut();
-	public void exit(Exit exit);
+	//public Writer getOut();
+	public void exit();
 }

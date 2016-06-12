@@ -33,4 +33,5 @@ public interface Model {
 	public void loadAndDecompress();
 	public void compressAndSave();
 	public Properties getProperties();
+	public void setProperties(String path);
 }

@@ -1,7 +1,6 @@
 package presenter;
 
 import model.Model;
-import view.Exit;
 import view.View;
 
 /**
@@ -20,8 +19,8 @@ public class CloseFilesCommand extends CommonViewCommand {
 
 	@Override
 	public void doCommand(String[] args) {
-		Exit exit = new Exit(getV());
-		getV().exit(exit);
+		//Exit exit = new Exit(getV());
+		getV().exit();
 		
 	}
 

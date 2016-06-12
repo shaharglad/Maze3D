@@ -70,9 +70,7 @@ public class MyView extends Observable implements View,Observer {
 	/**
 	 * Return the output
 	 * @return Writer
-	 */
-	
-	@Override
+	 */	
 	public Writer getOut() {
 		return out;
 	}
@@ -98,12 +96,17 @@ public class MyView extends Observable implements View,Observer {
 	}
 	
 	/**
-	 * Thie method will call another method that exit all open files.
+	 * This method will call another method that exit all open files.
 	 */
-	
 	@Override
-	public void exit(Exit exit){
-		exit.exit();
+	public void exit(){
+		try {
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//exit.exit();
 		setChanged();
 		notifyObservers("close_threads");
 	}
