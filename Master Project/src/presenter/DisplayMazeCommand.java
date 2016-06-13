@@ -1,5 +1,6 @@
 package presenter;
 
+import cliDisplays.DisplayMaze;
 import algorithms.search.SearchableMaze3dAdapter;
 import model.Model;
 import view.View;
@@ -12,7 +13,7 @@ import view.View;
  *
  */
 
-public class DisplayMazeCommand extends CommonModelCommand {
+public class DisplayMazeCommand extends CommonViewCommand {
 
 	/**
 	 * Ctor
@@ -20,8 +21,8 @@ public class DisplayMazeCommand extends CommonModelCommand {
 	 * @param m
 	 */
 	
-	public DisplayMazeCommand(Model m) {
-		super(m);
+	public DisplayMazeCommand(View v ,Model m) {
+		super(v, m);
 	}
 
 	/**
@@ -33,12 +34,14 @@ public class DisplayMazeCommand extends CommonModelCommand {
 	public void doCommand(String[] args) {
 		if (args == null || args.length < 1){
 			this.setMessage("Incorrect number of args");
-			this.getModel().displayMessage(this.getMessage());
+			this.getM().displayMessage(this.getMessage());
 			return;
 		}
 		
 		String name = args[0];
-		this.getModel().displayMaze(name);
+		//this.getModel().displayMaze(name);
+		SearchableMaze3dAdapter maze3d = this.getM().getMaze(name);
+		getV().display(maze3d, new DisplayMaze(getV()));
 	}
 
 }

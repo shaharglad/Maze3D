@@ -46,7 +46,7 @@ public class Presenter implements Observer {
 		viewCommands.put("generate_3d_maze", new Generate3dMazeCommand(model));
 		viewCommands.put("save_maze", new SaveMazeCommand(model));
 		viewCommands.put("dir", new DirCommand(model));
-		viewCommands.put("display_maze", new DisplayMazeCommand(model));
+		viewCommands.put("display_maze", new DisplayMazeCommand(view, model));
 		viewCommands.put("display_cross_section_by", new DisplayCrossSectionByCommand(model));
 		viewCommands.put("maze_size", new MazeSizeCommand(model));
 		viewCommands.put("file_size", new FileSizeCommand(model));

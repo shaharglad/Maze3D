@@ -4,6 +4,6 @@
 		<caching_path>solutions.txt</caching_path>
 		<max_threads>15</max_threads>
 		<solving_algorithm>DFS</solving_algorithm>
-		<generate_algorithm>myMaze</generate_algorithm>
+		<generate_algorithm>simpleMaze</generate_algorithm>
 	</data>
 </properties>

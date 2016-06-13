@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.FileDialog;
@@ -28,10 +29,10 @@ import cliDisplays.DisplayType;
 
 public class Gui extends Observable implements View {
 
-	MazeWindow mazeWindow;
-	Shell shell;
-	HashMap<String, Listener> buttons;
-	String currentMazeName;
+	private MazeWindow mazeWindow;
+	private Shell shell;
+	private HashMap<String, Listener> buttons;
+	private String currentMazeName;
 
 	/**
 	 * Ctor
@@ -158,6 +159,18 @@ public class Gui extends Observable implements View {
 			}
 		});
 		
+		//Display Button
+		buttons.put("DisplayMaze", new Listener() {
+			
+			@Override
+			public void handleEvent(Event arg0) {
+				String line = "display_maze"+ " " + currentMazeName;
+				setChanged();
+				notifyObservers(line);
+				
+			}
+		});
+		
 		//Exit Button
 		buttons.put("Exit", new Listener() {
 			
@@ -180,24 +193,36 @@ public class Gui extends Observable implements View {
 
 
 	@Override
-	public void display(Object obj, DisplayType d) {
-		if(d.getClass().getCanonicalName().equals("cliDisplays.DisplayMessage.DisplayMessage")){
+	public void display(final Object obj, DisplayType d) {
+		if(d.getClass().getCanonicalName().equals("cliDisplays.DisplayMessage")){
 			//Maze is ready!!!
 			if (((String)obj).contains("is ready!!!")) {
+				mazeWindow.getDisplay().getDefault().asyncExec(new Runnable() {
+					public void run() {
+						MessageBox messageBox = new MessageBox(shell,  SWT.ICON_INFORMATION | SWT.OK);
+						messageBox.setMessage(((String)obj));
+						messageBox.setText("Information Message");	
+						messageBox.open();	
+					}
+				});
+				
 				String line = "display_maze"+ " " + currentMazeName;
 				setChanged();
-				notifyObservers(line);	
-				return;
+				notifyObservers(line);
 			}
 			// Solution is ready
 			else if (((String)obj).contains("is ready")){
 				String line = "display_solution"+ " " + currentMazeName;
 				setChanged();
 				notifyObservers(line);	
-				return;
+			}
+			else{
+				d.display(obj);
 			}
 		}
-		d.display(obj);
+		else{
+			d.display(obj);
+		}
 		
 	}
 

@@ -3,6 +3,8 @@ package view;
 import java.util.HashMap;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -19,10 +21,11 @@ import org.eclipse.swt.widgets.Listener;
  */
 public class MazeWindow extends BasicWindow {
 
-	HashMap<String,Listener> buttons;
-	Button generateButton;
-	Button hintButton;
-	Button solveButton;
+	private HashMap<String,Listener> buttons;
+	private Button generateButton;
+	private Button hintButton;
+	private Button solveButton;
+	private MazeDisplay maze;
 	
 	/**
 	 * Ctor
@@ -40,6 +43,22 @@ public class MazeWindow extends BasicWindow {
 		this.buttons = buttons;
 	}
 	
+	/**
+	 * This method will return the mazeDisplay.
+	 * @return MazeDisplay
+	 */
+	public MazeDisplay getMaze() {
+		return maze;
+	}
+
+	/**
+	 * This method will set the mazeDisplay.
+	 * @param maze - The mazeDisplay we want to set to.
+	 */
+	public void setMaze(MazeDisplay maze) {
+		this.maze = maze;
+	}
+
 	/**
 	 * This method will load all widgets into the main window.
 	 */
@@ -80,20 +99,24 @@ public class MazeWindow extends BasicWindow {
 		//-------Generate Button------//
 		generateButton=new Button(shell, SWT.PUSH);
 		generateButton.setText("Generate");
-		generateButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 3, 1));
+		generateButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 1, 1));
 		generateButton.addListener(SWT.Selection, buttons.get("Generate"));
 		
 		//-------Hint Button------//
 		hintButton=new Button(shell, SWT.PUSH);
 		hintButton.setText("Hint");
-		hintButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 3, 1));
+		hintButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 1, 1));
 		//hintButton.addListener(SWT.Selection, buttons.get("generate"));
 		
 		//-------Solve Button------//
 		solveButton=new Button(shell, SWT.PUSH);
 		solveButton.setText("Solve");
-		solveButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 3, 1));
+		solveButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 1, 1));
 		//solveButton.addListener(SWT.Selection, buttons.get("generate"));
+		
+		//******canvas*******	
+		maze = new Maze3D(shell, SWT.BORDER);
+		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true,1,5));
 		
 		shell.setMenuBar(menuBar);
 		
