@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Observable;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -33,6 +35,8 @@ public class Gui extends Observable implements View {
 	private Shell shell;
 	private HashMap<String, Listener> buttons;
 	private String currentMazeName;
+	private KeyListener canvasKeyListener;
+	private Boolean keyListenerActivator = false;
 
 	/**
 	 * Ctor
@@ -45,6 +49,7 @@ public class Gui extends Observable implements View {
 		this.shell=mazeWindow.getShell();
 		initButtons();
 		this.mazeWindow.setButtons(buttons);
+		this.mazeWindow.setCanvasKeyListener(canvasKeyListener);
 	}
 	
 	
@@ -56,6 +61,14 @@ public class Gui extends Observable implements View {
 		return mazeWindow;
 	}
 
+
+	/**
+	 * This method will set the keyListenetActivator.
+	 * @param keyListenerActivator - The value we want to set into.
+	 */
+	public void setKeyListenerActivator(Boolean keyListenerActivator) {
+		this.keyListenerActivator = keyListenerActivator;
+	}
 
 
 	/**
@@ -109,6 +122,7 @@ public class Gui extends Observable implements View {
 						setChanged();
 						notifyObservers(line);
 						sh.close();
+						mazeWindow.getShell().forceFocus();
 						
 					}
 					
@@ -182,6 +196,47 @@ public class Gui extends Observable implements View {
 				
 			}
 		});
+		
+		//Key Listeners
+		canvasKeyListener = new KeyListener(){
+			
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (keyListenerActivator){
+					switch (e.keyCode) {
+					case SWT.ARROW_DOWN:
+						mazeWindow.getMaze().moveBackward();
+						break;
+					case SWT.ARROW_UP:
+						mazeWindow.getMaze().moveForward();
+						break;
+					case SWT.ARROW_LEFT:
+						mazeWindow.getMaze().moveLeft();
+						break;
+					case SWT.ARROW_RIGHT:
+						mazeWindow.getMaze().moveRight();
+						break;
+					case SWT.PAGE_UP:
+						mazeWindow.getMaze().moveUp();
+						break;
+					case SWT.PAGE_DOWN:
+						mazeWindow.getMaze().moveDown();
+						break;
+					}
+					if(charAndExitIsEqual()){
+						disabledButtons();
+						setKeyListenerActivator(false);
+						setChanged();
+						notifyObservers("win");
+					}
+				}
+			}	
+		};			
 	}
 	
 	
@@ -202,7 +257,7 @@ public class Gui extends Observable implements View {
 						MessageBox messageBox = new MessageBox(shell,  SWT.ICON_INFORMATION | SWT.OK);
 						messageBox.setMessage(((String)obj));
 						messageBox.setText("Information Message");	
-						messageBox.open();	
+						messageBox.open();
 					}
 				});
 				
@@ -234,6 +289,27 @@ public class Gui extends Observable implements View {
 		setChanged();
 		notifyObservers("close_threads");
 		
+	}
+	
+	/**
+	 * This method will check if the character position and the exif position is equal.
+	 */
+	public Boolean charAndExitIsEqual(){
+		return (mazeWindow.getMaze().getCharacter().equals(mazeWindow.getMaze().getCurrentMaze().getGoalPosition()));
+		}
+	
+	/**
+	 * This method will call a function which disabled buttons
+	 */
+	public void disabledButtons(){
+		mazeWindow.disabledButtons();
+	}
+	
+	/**
+	 * This method will call a function which enabled buttons.
+	 */
+	public void enabledButtons(){
+		mazeWindow.enabledButton();
 	}
 
 }

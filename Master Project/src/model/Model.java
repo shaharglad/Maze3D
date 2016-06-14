@@ -18,7 +18,7 @@ public interface Model {
 	public void displayMessage (String message);
 	public Object getObj ();
 	public void dir(String path);
-	public void displayMaze (String name);
+	//public void displayMaze (String name);
 	public SearchableMaze3dAdapter getMaze(String name);
 	public void displayCrossSection(String section, int indes, String name);
 	public void mazeSize (String name);

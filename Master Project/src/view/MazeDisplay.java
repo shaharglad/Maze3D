@@ -17,23 +17,6 @@ import algorithms.search.Solution;
 public abstract class MazeDisplay extends Canvas {
 
 	//Default maze for testing
-	/*int[][] mazeData={
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,1,1,1,0,0,1,1,1,1,0,0,0,1},
-			{1,0,0,0,1,0,0,1,0,0,1,0,0,0,1},
-			{1,0,1,1,1,0,0,1,1,1,1,0,0,0,1},
-			{1,0,1,0,0,0,0,0,0,0,1,0,0,0,1},
-			{1,0,1,1,1,0,0,0,0,0,1,0,1,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,0,0,1,1,0,0,1,1,1,1,0,0,0,1},
-			{1,0,0,0,1,0,0,1,0,0,1,0,0,0,1},
-			{1,0,0,0,1,0,0,1,0,0,1,0,0,0,1},
-			{1,0,0,0,1,0,0,1,1,1,1,0,0,0,1},
-			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		};*/
-	
 	int[][] mazeData={
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,0,0,0,0,0,0,0,1,1,0,1,0,0,1},
@@ -46,6 +29,8 @@ public abstract class MazeDisplay extends Canvas {
 			{1,0,0,0,0,0,0,0,0,1,0,1,0,0,1},
 			{1,1,1,1,1,1,1,1,1,1,1,1,0,1,1},
 		};
+	
+	//int[][] mazeData = null;
 
 	
 	/**
@@ -81,32 +66,32 @@ public abstract class MazeDisplay extends Canvas {
 	/**
 	 * moving the character to upper dimension
 	 */
-	public abstract boolean moveUp();
+	public abstract void moveUp();
 	
 	/**
 	 * moving the character to lower dimension
 	 */
-	public abstract boolean moveDown();
+	public abstract void moveDown();
 	
 	/**
 	 * moving the character up
 	 */
-	public abstract boolean moveForward();
+	public abstract void moveForward();
 	
 	/**
 	 * moving the character down
 	 */
-	public abstract boolean moveBackward();
+	public abstract void moveBackward();
 	
 	/**
 	 * moving the character left
 	 */
-	public abstract boolean moveLeft();
+	public abstract void moveLeft();
 	
 	/**
 	 * moving the character right
 	 */
-	public abstract boolean moveRight();
+	public abstract void moveRight();
 
 	/**
 	 * taking the character step by step to the exit by timer task

@@ -235,8 +235,8 @@ public class MyModel extends Observable implements Model {
 	 * This method will notify observer about display maze.
 	 * @param name - The maze we want to display
 	 */
-	
-	@Override
+	//--------NotInUsed--------------//
+	/*@Override
 	public void displayMaze(String name) {
 		if (!mazes.containsKey(name)) {
 			obj = (String) "\nMaze " + name + " does not exist\n";
@@ -251,7 +251,7 @@ public class MyModel extends Observable implements Model {
 			return;
 		}
 		
-	}
+	}*/
 
 	/**
 	 * This method will create the maze cross section according to the specified section.

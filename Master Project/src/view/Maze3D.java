@@ -1,5 +1,6 @@
 package view;
 
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,6 +13,7 @@ import org.eclipse.swt.widgets.Composite;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import algorithms.search.State;
 
 /**
  * 
@@ -25,6 +27,8 @@ public class Maze3D extends MazeDisplay {
 	private Maze3d currentMaze;
 	public Position character = new Position(0,2,0); // The default character position according to default maze data.
 	Image myImage = new Image( getDisplay(), "images/Minion.png" ); //character image
+	public Position goal;
+	Image goalImage = new Image( getDisplay(), "images/banna.png" ); //character image
 	private Timer timer;
 	private TimerTask task;
 	
@@ -66,7 +70,7 @@ public class Maze3D extends MazeDisplay {
 					   }
 					   
 					 //draw the character image when he moving
-				          if(i==character.getX() && j==character.getZ()){
+				          if(i==character.getZ() && j==character.getX()){
 				        	  e.gc.drawImage(myImage, 0, 0, 220, 220, (int)Math.round(dpoints[0]+2), (int)Math.round(dpoints[1]-cheight/2+2), (int)Math.round((w0+w1)/2/1.5), (int)Math.round(h/1.5));			        	  
 				          }
 				   }
@@ -102,6 +106,7 @@ public class Maze3D extends MazeDisplay {
 	@Override
 	public void setCurrentMaze(Maze3d m) {
 		currentMaze = m;
+		goal = m.getGoalPosition();
 		mazeData = currentMaze.getCrossSectionByY(currentMaze.getStartPosition().getY());
 		setCharacterPosition(currentMaze.getStartPosition().getX(), currentMaze.getStartPosition().getY(), currentMaze.getStartPosition().getZ());
 	}
@@ -123,56 +128,94 @@ public class Maze3D extends MazeDisplay {
 
 	@Override
 	public Position getCharacter() {
-		// TODO Auto-generated method stub
-		return null;
+		return character;
 	}
 
 
 	@Override
-	public boolean moveUp() {
-		// TODO Auto-generated method stub
-		return false;
+	public void moveUp() {
+		Position pos = getCharacter();
+		if((pos.getY() - 1 >= 0 && pos.getY() - 1 < currentMaze.getMaze3d()[1].length)){
+			mazeData = currentMaze.getCrossSectionByY(pos.getY() - 1);
+			moveCharacter(pos.getX(), pos.getY() - 1, pos.getZ());
+			redraw();
+			update();
+			layout();
+		}
 	}
 
 
 	@Override
-	public boolean moveDown() {
-		// TODO Auto-generated method stub
-		return false;
+	public void moveDown() {
+		Position pos = getCharacter();
+		if((pos.getY() + 1 >= 0 && pos.getY() + 1 < currentMaze.getMaze3d()[1].length)){
+			mazeData = currentMaze.getCrossSectionByY(pos.getY() + 1);
+			moveCharacter(pos.getX(), pos.getY() + 1, pos.getZ());
+			redraw();
+			update();
+			layout();
+		}
+		
 	}
 
 
 	@Override
-	public boolean moveForward() {
-		// TODO Auto-generated method stub
-		return false;
+	public void moveForward() {
+		Position pos = getCharacter();
+		moveCharacter(pos.getX(), pos.getY(), pos.getZ() - 1);
 	}
 
 
 	@Override
-	public boolean moveBackward() {
-		// TODO Auto-generated method stub
-		return false;
+	public void moveBackward() {
+		Position pos = getCharacter();
+		moveCharacter(pos.getX(), pos.getY(), pos.getZ() + 1);
 	}
 
 
 	@Override
-	public boolean moveLeft() {
-		// TODO Auto-generated method stub
-		return false;
+	public void moveLeft() {
+		Position pos = getCharacter();
+		moveCharacter(pos.getX() - 1, pos.getY(), pos.getZ());
 	}
 
 
 	@Override
-	public boolean moveRight() {
-		// TODO Auto-generated method stub
-		return false;
+	public void moveRight() {
+		Position pos = getCharacter();
+		moveCharacter(pos.getX() + 1, pos.getY(), pos.getZ());
 	}
 
-
+	/**
+	 * This method will take the character to the goal position step by step.
+	 */
 	@Override
-	public void WalkToExit(Solution<Position> solution) {
-		// TODO Auto-generated method stub
+	public void WalkToExit(final Solution<Position> solution) {
+		/*final int size = solution.getPath().size();
+		int i = 0;
+		Position currentPos = getCharacter();
+		for (i = 0; i < size; i++) {
+			if(currentPos.equals(solution.getPath().get(i).getState()))
+				break;
+		}
+		i += 1;
+		timer = new Timer();
+		task = new TimerTask() {
+			@Override
+			public void run() {
+				
+				if(i >= 0){
+					moveCharacter(solution.getPath().get(i).getState().getX(), solution.getPath().get(i).getState().getY(),
+							solution.getPath().get(i).getState().getZ());
+					i++;
+				}
+				else{
+					timer.cancel();
+					timer.purge();
+				}
+			}
+		};
+*/		
 		
 	}
 
@@ -194,6 +237,8 @@ public class Maze3D extends MazeDisplay {
 					@Override
 					public void run() {
 						redraw();
+						getShell().update();
+						getDisplay().update();
 						
 					}
 				});

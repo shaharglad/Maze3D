@@ -44,6 +44,7 @@ public class DisplayMaze extends CommonDisplayType {
 		}
 		else if(getV().getClass().getCanonicalName().contains("Gui")){
 			((Gui) this.getV()).getMazeWindow().getMaze().setCurrentMaze(((SearchableMaze3dAdapter)obj).getMaze());
+			((Gui) this.getV()).setKeyListenerActivator(true);
 		}
 	}
 

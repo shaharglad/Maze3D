@@ -3,6 +3,7 @@ package view;
 import java.util.HashMap;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -26,6 +27,7 @@ public class MazeWindow extends BasicWindow {
 	private Button hintButton;
 	private Button solveButton;
 	private MazeDisplay maze;
+	KeyListener canvasKeyListener;
 	
 	/**
 	 * Ctor
@@ -117,10 +119,36 @@ public class MazeWindow extends BasicWindow {
 		//******canvas*******	
 		maze = new Maze3D(shell, SWT.BORDER);
 		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true,1,5));
+		maze.addKeyListener(canvasKeyListener);
 		
 		shell.setMenuBar(menuBar);
 		
 		
+	}
+
+	/**
+	 * This method will set the canvasKeyListener.
+	 * @param canvasKeyListener - the listener we want to set into.
+	 */
+	public void setCanvasKeyListener(KeyListener canvasKeyListener) {
+		this.canvasKeyListener = canvasKeyListener;
+	}
+	
+	/**
+	 * This method will disable the buttons.
+	 */
+	public void disabledButtons(){
+		hintButton.setEnabled(false);
+		solveButton.setEnabled(false);	
+	}
+	
+	/**
+	 * This method will enable the buttons
+	 */
+	public void enabledButton(){		
+		
+        hintButton.setEnabled(true);
+        solveButton.setEnabled(true);
 	}
 
 }
