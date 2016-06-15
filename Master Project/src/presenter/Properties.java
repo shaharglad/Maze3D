@@ -34,6 +34,9 @@ public class Properties implements Serializable {
 	/** The Solutions Cache Path. */
 	String cachingPath;
 	
+	/** The view type. */
+	String view;
+	
 	
 	/**
 	 * Default Ctor.
@@ -70,6 +73,7 @@ public class Properties implements Serializable {
 			setMaxThreads(eElement.getElementsByTagName("max_threads").item(0).getTextContent());
 			setSolvingAlgorithm(eElement.getElementsByTagName("solving_algorithm").item(0).getTextContent());
 			setGenerateAlgorithm(eElement.getElementsByTagName("generate_algorithm").item(0).getTextContent());
+			setView(eElement.getElementsByTagName("view").item(0).getTextContent());
 			}
     } catch (Exception e) {
     	e.printStackTrace();
@@ -147,4 +151,22 @@ public class Properties implements Serializable {
 	public void setCachingPath(String cachingPath) {
 		this.cachingPath = cachingPath;
 	}
+
+	/**
+	 * This method will return the view type.
+	 * @return String
+	 */
+	public String getView() {
+		return view;
+	}
+
+	/**
+	 * This method will set the view type.
+	 * @param view - The view type.
+	 */
+	public void setView(String view) {
+		this.view = view;
+	}
+	
+	
 }

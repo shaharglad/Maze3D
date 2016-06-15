@@ -2,6 +2,7 @@ package cliDisplays;
 
 import java.io.IOException;
 
+import view.Gui;
 import view.MyView;
 import view.View;
 import algorithms.mazeGenerators.Position;
@@ -35,15 +36,22 @@ public class DisplaySolution extends CommonDisplayType {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void display(Object obj) {
-		for(State<Position> position : ((Solution<Position>)obj).getPath()){
-			try {
-				((MyView)this.getV()).getOut().write(position.toString());
-				((MyView)this.getV()).getOut().flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
+		
+		if(getV().getClass().getCanonicalName().contains("MyView")){
+			for(State<Position> position : ((Solution<Position>)obj).getPath()){
+				try {
+					((MyView)this.getV()).getOut().write(position.toString());
+					((MyView)this.getV()).getOut().flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+		}
+		else if(getV().getClass().getCanonicalName().contains("Gui")){
+			((Gui) this.getV()).getMazeWindow().getMaze().WalkToExit((Solution<Position>)obj);
+			((Gui) this.getV()).setKeyListenerActivator(true);
+		}
 	}
 
 }

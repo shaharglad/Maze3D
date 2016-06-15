@@ -24,6 +24,6 @@ public class DirCommand extends CommonModelCommand {
 		}
 		String path = args[0];
 		
-			this.getModel().dir(path);
+		this.getModel().dir(path);
 	}
 }

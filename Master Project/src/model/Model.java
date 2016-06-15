@@ -1,6 +1,7 @@
 package model;
 
 import presenter.Properties;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.SearchableMaze3dAdapter;
 import algorithms.search.Solution;
 
@@ -20,12 +21,12 @@ public interface Model {
 	public void dir(String path);
 	//public void displayMaze (String name);
 	public SearchableMaze3dAdapter getMaze(String name);
-	public void displayCrossSection(String section, int indes, String name);
+	public void displayCrossSection(String section, int index, String name);
 	public void mazeSize (String name);
 	public void fileSize(String path);
 	@SuppressWarnings("rawtypes")
 	public Solution getSolution(String name);
-	public void solve(String name, String searcherAlgoName);
+	public void solve(String name, String searcherAlgoName, Position pos);
 	public void DisplaySolution(String name);
 	public void loadMaze(String path, String name);
 	public void exit();

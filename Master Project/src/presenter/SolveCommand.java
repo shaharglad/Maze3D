@@ -1,5 +1,6 @@
 package presenter;
 
+import algorithms.mazeGenerators.Position;
 import algorithms.search.SearchableMaze3dAdapter;
 import model.Model;
 
@@ -37,6 +38,14 @@ public class SolveCommand extends CommonModelCommand {
 		
 		String name = args[0];
 		String algo = getModel().getProperties().getSolvingAlgorithm().toLowerCase();
+		Position currentPosition = new Position();
+		
+		if(args.length == 4){
+			int x = Integer.parseInt(args[1]);
+			int y = Integer.parseInt(args[2]);
+			int z = Integer.parseInt(args[3]);
+			currentPosition.setPosition(x, y, z);
+		}
 		
 		SearchableMaze3dAdapter maze = getModel().getMaze(name);
 		if(maze == null){
@@ -44,12 +53,17 @@ public class SolveCommand extends CommonModelCommand {
 			this.getModel().displayMessage(this.getMessage());
 			return;
 		}
+		
+		if(currentPosition == null){
+			currentPosition.setPosition(maze.getMaze().getStartPosition());
+		}
+		
 		if(!(algo.equals("dfs")) && !(algo.equals("bfs")) && !(algo.equals("breadthfirstsearch"))){	
 			setMessage("\nSearcher Algorithm name must be: DFS,BFS or BreadthFirstSearch\n");
 			this.getModel().displayMessage(this.getMessage());
 			return;
 		}
-		this.getModel().solve(name, algo);
+		this.getModel().solve(name, algo, currentPosition);
 	}
 
 }

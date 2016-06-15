@@ -137,6 +137,23 @@ public class Gui extends Observable implements View {
 			
 		});
 		
+		//Solve button
+		buttons.put("solve",new Listener() {
+				
+			@Override
+			public void handleEvent(Event arg0) {
+				//LastButtonPressed="solve";
+				setKeyListenerActivator(false);
+				String x =Integer.toString(mazeWindow.getMaze().getCharacter().getX());
+				String y =Integer.toString(mazeWindow.getMaze().getCharacter().getY());
+				String z =Integer.toString(mazeWindow.getMaze().getCharacter().getZ());
+				String line = "solve" + " " + currentMazeName + " " + x + " " + y + " " + z;
+				disabledButtons();
+				setChanged();
+				notifyObservers(line);
+				}	
+			});
+		
 		//Properties Button
 		buttons.put("Properties", new Listener() {
 			

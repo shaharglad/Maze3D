@@ -222,7 +222,7 @@ public class MyModel extends Observable implements Model {
 		if(file.exists()){
 			obj = (String[]) file.list();
 			setChanged();
-			notifyObservers("display_String_Array");
+			notifyObservers("display_string_array");
 			return;
 		}
 		 obj = (String) "\nNot a Valid Path\n";
@@ -372,8 +372,9 @@ public class MyModel extends Observable implements Model {
 	 */
 	
 	@Override
-	public void solve(final String name, final String searcherAlgoName) {
+	public void solve(final String name, final String searcherAlgoName, final Position currentPosition) {
 		SearchableMaze3dAdapter maze = mazes.get(name);
+		maze.getMaze().setStart(currentPosition);
 		if(mazeToSol.containsKey(maze.getMaze())){
 			obj = (String) "\nSolution for " + name + " is ready\n";
 			setChanged();
@@ -384,6 +385,7 @@ public class MyModel extends Observable implements Model {
 			executor.submit(new Callable<Solution<Position>>() {
 				public Solution<Position> call() throws Exception {
 					SearchableMaze3dAdapter maze = mazes.get(name);
+					maze.getMaze().setStart(currentPosition);
 					Solution<Position> solution = new Solution<Position>();
 					switch (searcherAlgoName) {
 					case "dfs":

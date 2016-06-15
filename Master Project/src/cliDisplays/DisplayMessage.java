@@ -34,7 +34,7 @@ public class DisplayMessage extends CommonDisplayType {
 	@SuppressWarnings("static-access")
 	@Override
 	public void display(final Object obj) {
-		if(getV().getClass().getCanonicalName().contains("myView")){
+		if(getV().getClass().getCanonicalName().contains("MyView")){
 			try {
 				((MyView)this.getV()).getOut().write((String)obj);
 			} catch (IOException e) {

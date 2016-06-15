@@ -114,7 +114,7 @@ public class MazeWindow extends BasicWindow {
 		solveButton=new Button(shell, SWT.PUSH);
 		solveButton.setText("Solve");
 		solveButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 1, 1));
-		//solveButton.addListener(SWT.Selection, buttons.get("generate"));
+		solveButton.addListener(SWT.Selection, buttons.get("solve"));
 		
 		//******canvas*******	
 		maze = new Maze3D(shell, SWT.BORDER);

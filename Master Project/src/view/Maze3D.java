@@ -1,6 +1,7 @@
 package view;
 
 
+import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,7 +29,7 @@ public class Maze3D extends MazeDisplay {
 	public Position character = new Position(0,2,0); // The default character position according to default maze data.
 	Image myImage = new Image( getDisplay(), "images/Minion.png" ); //character image
 	public Position goal;
-	Image goalImage = new Image( getDisplay(), "images/banna.png" ); //character image
+	//Image goalImage = new Image( getDisplay(), "images/banna.png" ); //character image
 	private Timer timer;
 	private TimerTask task;
 	
@@ -191,23 +192,19 @@ public class Maze3D extends MazeDisplay {
 	 */
 	@Override
 	public void WalkToExit(final Solution<Position> solution) {
-		/*final int size = solution.getPath().size();
-		int i = 0;
-		Position currentPos = getCharacter();
-		for (i = 0; i < size; i++) {
-			if(currentPos.equals(solution.getPath().get(i).getState()))
-				break;
-		}
-		i += 1;
+		Collections.reverse(solution.getPath());
+		//final int i = solution.getPath().size() -1;
 		timer = new Timer();
 		task = new TimerTask() {
+			int i = solution.getPath().size() -1;
+			
 			@Override
 			public void run() {
-				
+
 				if(i >= 0){
-					moveCharacter(solution.getPath().get(i).getState().getX(), solution.getPath().get(i).getState().getY(),
+					setCharacterPosition(solution.getPath().get(i).getState().getX(), solution.getPath().get(i).getState().getY(),
 							solution.getPath().get(i).getState().getZ());
-					i++;
+					i--;
 				}
 				else{
 					timer.cancel();
@@ -215,8 +212,8 @@ public class Maze3D extends MazeDisplay {
 				}
 			}
 		};
-*/		
-		
+		timer.scheduleAtFixedRate(task, 0, 100);
+		timer.purge();
 	}
 
 

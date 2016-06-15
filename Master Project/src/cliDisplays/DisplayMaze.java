@@ -28,7 +28,7 @@ public class DisplayMaze extends CommonDisplayType {
 	
 	@Override
 	public void display(Object obj) {
-		if(getV().getClass().getCanonicalName().contains("myView")){
+		if(getV().getClass().getCanonicalName().contains("MyView")){
 			try {
 				((MyView)this.getV()).getOut().write(((SearchableMaze3dAdapter)obj).getMaze().toString());
 			} catch (IOException e) {
