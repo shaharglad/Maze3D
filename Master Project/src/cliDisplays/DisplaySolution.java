@@ -49,8 +49,13 @@ public class DisplaySolution extends CommonDisplayType {
 			}	
 		}
 		else if(getV().getClass().getCanonicalName().contains("Gui")){
-			((Gui) this.getV()).getMazeWindow().getMaze().WalkToExit((Solution<Position>)obj);
-			((Gui) this.getV()).setKeyListenerActivator(true);
+			if(((Gui) this.getV()).getLastButtonPressed().equals("solve")){
+				((Gui) this.getV()).getMazeWindow().getMaze().walkToExit((Solution<Position>)obj);
+				((Gui) this.getV()).setKeyListenerActivator(true);
+			}
+			else if(((Gui) this.getV()).getLastButtonPressed().equals("hint")){
+				((Gui) this.getV()).getMazeWindow().getMaze().walkByHint((Solution<Position>)obj);
+			}
 		}
 	}
 

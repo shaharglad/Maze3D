@@ -56,6 +56,7 @@ public class Presenter implements Observer {
 		viewCommands.put("exit", new ExitCommand(model));
 		viewCommands.put("close_threads", new CloseThreadsCommand(model));
 		viewCommands.put("set_properties", new SetPropertiesCommand(model));
+		viewCommands.put("win", new WinCommand(view, model));
 		
 		modelCommands = new HashMap<String, Command>();
 		modelCommands.put("display_message", new DisplayMessageCommand(view, model));

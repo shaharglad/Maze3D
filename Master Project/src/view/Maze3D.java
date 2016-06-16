@@ -26,10 +26,11 @@ import algorithms.search.State;
 public class Maze3D extends MazeDisplay {
 	
 	private Maze3d currentMaze;
-	public Position character = new Position(0,2,0); // The default character position according to default maze data.
-	Image myImage = new Image( getDisplay(), "images/Minion.png" ); //character image
-	public Position goal;
-	//Image goalImage = new Image( getDisplay(), "images/banna.png" ); //character image
+	public Position character = new Position();
+	Image myImage = new Image( getDisplay(), "images/Minion3.png" ); //character image
+	public Position goal = new Position();
+	Image goalImage = new Image( getDisplay(), "images/banana.png" ); 
+	Image backgroundImage = new Image( getDisplay(), "images/Minions.jpg" );
 	private Timer timer;
 	private TimerTask task;
 	
@@ -41,40 +42,50 @@ public class Maze3D extends MazeDisplay {
 	 */
 	public Maze3D(Composite parent, int style) {
 		super(parent, style);
-
+		
 		final Color white = new Color(null, 255, 255, 255);
 		setBackground(white);
+		
 		addPaintListener(new PaintListener() {
 			
 			@Override
 			public void paintControl(PaintEvent e) {
-				e.gc.setForeground(new Color(null, 0, 0, 0));
-				e.gc.setBackground(new Color(null, 0, 0, 0));
-				
-				int width = getSize().x;
-				int height = getSize().y;
-				
-				int mx = width / 2;
-				
-				double w = (double) width / mazeData[0].length;
-				double h = (double) height / mazeData.length;
-				for(int  i = 0; i < mazeData.length ; i++){
-				   double w0 = 0.7 * w + 0.3 * w * i /mazeData.length;
-				   double w1 = 0.7 * w + 0.3 * w * (i+1) /mazeData.length;
-				   double start = mx-w0 * mazeData[i].length / 2;
-				   double start1 = mx-w1 * mazeData[i].length / 2;
-				   for(int j=0; j<mazeData[i].length; j++){
-					   double[] dpoints = {start+j*w0,i*h,start+j*w0+w0,i*h,start1+j*w1+w1,i*h+h,start1+j*w1,i*h+h};
-					   double cheight = h / 2;
-					   if(mazeData[i][j] != 0){
-						   paintCube(dpoints, cheight, e);
-					   }
-					   
-					 //draw the character image when he moving
+				e.gc.drawImage(backgroundImage, 10, 10);
+				if(mazeData != null){
+					e.gc.setForeground(new Color(null, 0, 0, 0));
+					e.gc.setBackground(new Color(null, 0, 0, 0));
+					
+					int width = getSize().x;
+					int height = getSize().y;
+					
+					int mx = width / 2;
+					
+					double w = (double) width / mazeData[0].length;
+					double h = (double) height / mazeData.length;
+					for(int  i = 0; i < mazeData.length ; i++){
+					   double w0 = 0.7 * w + 0.3 * w * i /mazeData.length;
+					   double w1 = 0.7 * w + 0.3 * w * (i+1) /mazeData.length;
+					   double start = mx-w0 * mazeData[i].length / 2;
+					   double start1 = mx-w1 * mazeData[i].length / 2;
+					   for(int j=0; j<mazeData[i].length; j++){
+						   double[] dpoints = {start+j*w0,i*h,start+j*w0+w0,i*h,start1+j*w1+w1,i*h+h,start1+j*w1,i*h+h};
+						   double cheight = h / 2;
+						   if(mazeData[i][j] != 0){
+							   paintCube(dpoints, cheight, e);
+						   }
+						   
+						 //draw the character image when he moving
 				          if(i==character.getZ() && j==character.getX()){
 				        	  e.gc.drawImage(myImage, 0, 0, 220, 220, (int)Math.round(dpoints[0]+2), (int)Math.round(dpoints[1]-cheight/2+2), (int)Math.round((w0+w1)/2/1.5), (int)Math.round(h/1.5));			        	  
 				          }
-				   }
+					          
+				        //draw the goal position image when we arrive it
+				         if(i == goal.getZ() && j==goal.getX() && currentMaze.getCrossSectionByY(goal.getY()).equals(mazeData)){
+				        	 // e.gc.drawImage(myImage, 0, 0, 220, 220, (int)Math.round(dpoints[0]+2), (int)Math.round(dpoints[1]-cheight/2+2), (int)Math.round((w0+w1)/2/1.5), (int)Math.round(h/1.5));
+				        	  e.gc.drawString("exit", 0, 3);
+				         }
+					   }
+					}
 				}
 			}
 		});
@@ -109,6 +120,7 @@ public class Maze3D extends MazeDisplay {
 		currentMaze = m;
 		goal = m.getGoalPosition();
 		mazeData = currentMaze.getCrossSectionByY(currentMaze.getStartPosition().getY());
+		setGoal(m.getGoalPosition());
 		setCharacterPosition(currentMaze.getStartPosition().getX(), currentMaze.getStartPosition().getY(), currentMaze.getStartPosition().getZ());
 	}
 
@@ -191,9 +203,8 @@ public class Maze3D extends MazeDisplay {
 	 * This method will take the character to the goal position step by step.
 	 */
 	@Override
-	public void WalkToExit(final Solution<Position> solution) {
+	public void walkToExit(final Solution<Position> solution) {
 		Collections.reverse(solution.getPath());
-		//final int i = solution.getPath().size() -1;
 		timer = new Timer();
 		task = new TimerTask() {
 			int i = solution.getPath().size() -1;
@@ -218,9 +229,11 @@ public class Maze3D extends MazeDisplay {
 
 
 	@Override
-	public void WalkByHint(Solution<Position> solution) {
-		// TODO Auto-generated method stub
-		
+	public void walkByHint(Solution<Position> solution) {
+		Collections.reverse(solution.getPath());
+		int i = solution.getPath().size() -2;
+		setCharacterPosition(solution.getPath().get(i).getState().getX(), solution.getPath().get(i).getState().getY(),
+				solution.getPath().get(i).getState().getZ());
 	}
 	
 	private boolean moveCharacter(int x, int y, int z){
@@ -244,5 +257,21 @@ public class Maze3D extends MazeDisplay {
 		}
 		return false;
 	}
+
+
+	public Position getGoal() {
+		return goal;
+	}
+
+
+	public void setGoal(Position goal) {
+		this.goal = goal;
+	}
+
+
+	public void setCharacter(Position character) {
+		this.character = character;
+	}
+	
 	
 }

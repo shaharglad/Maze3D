@@ -37,6 +37,7 @@ public class Gui extends Observable implements View {
 	private String currentMazeName;
 	private KeyListener canvasKeyListener;
 	private Boolean keyListenerActivator = false;
+	String LastButtonPressed;
 
 	/**
 	 * Ctor
@@ -68,6 +69,22 @@ public class Gui extends Observable implements View {
 	 */
 	public void setKeyListenerActivator(Boolean keyListenerActivator) {
 		this.keyListenerActivator = keyListenerActivator;
+	}
+
+	/**
+	 * Return the last button that pressed
+	 * @return String
+	 */
+	public String getLastButtonPressed() {
+		return LastButtonPressed;
+	}
+
+	/**
+	 * Sets the lastButtonPressed
+	 * @param lastButtonPressed - Tha name of the last button that pressed
+	 */
+	public void setLastButtonPressed(String lastButtonPressed) {
+		LastButtonPressed = lastButtonPressed;
 	}
 
 
@@ -119,11 +136,11 @@ public class Gui extends Observable implements View {
 					public void widgetSelected(SelectionEvent arg0) {
 						currentMazeName = nameT.getText();
 						String line="generate_3d_maze " + currentMazeName + " " +  rowT.getText() + " " + colsT.getText() + " " +depthT.getText();
+						enabledButtons();
 						setChanged();
 						notifyObservers(line);
 						sh.close();
 						mazeWindow.getShell().forceFocus();
-						
 					}
 					
 					@Override
@@ -142,13 +159,28 @@ public class Gui extends Observable implements View {
 				
 			@Override
 			public void handleEvent(Event arg0) {
-				//LastButtonPressed="solve";
+				setLastButtonPressed("solve");
 				setKeyListenerActivator(false);
 				String x =Integer.toString(mazeWindow.getMaze().getCharacter().getX());
 				String y =Integer.toString(mazeWindow.getMaze().getCharacter().getY());
 				String z =Integer.toString(mazeWindow.getMaze().getCharacter().getZ());
 				String line = "solve" + " " + currentMazeName + " " + x + " " + y + " " + z;
 				disabledButtons();
+				setChanged();
+				notifyObservers(line);
+				}	
+			});
+		
+		//Hint button
+		buttons.put("hint",new Listener() {
+				
+			@Override
+			public void handleEvent(Event arg0) {
+				setLastButtonPressed("hint");
+				String x =Integer.toString(mazeWindow.getMaze().getCharacter().getX());
+				String y =Integer.toString(mazeWindow.getMaze().getCharacter().getY());
+				String z =Integer.toString(mazeWindow.getMaze().getCharacter().getZ());
+				String line = "solve" + " " + currentMazeName + " " + x + " " + y + " " + z;
 				setChanged();
 				notifyObservers(line);
 				}	

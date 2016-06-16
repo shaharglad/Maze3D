@@ -108,7 +108,7 @@ public class MazeWindow extends BasicWindow {
 		hintButton=new Button(shell, SWT.PUSH);
 		hintButton.setText("Hint");
 		hintButton.setLayoutData(new GridData(SWT.FILL, SWT.None, false, false, 1, 1));
-		//hintButton.addListener(SWT.Selection, buttons.get("generate"));
+		hintButton.addListener(SWT.Selection, buttons.get("hint"));
 		
 		//-------Solve Button------//
 		solveButton=new Button(shell, SWT.PUSH);
@@ -121,6 +121,7 @@ public class MazeWindow extends BasicWindow {
 		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true,1,5));
 		maze.addKeyListener(canvasKeyListener);
 		
+		disabledButtons();
 		shell.setMenuBar(menuBar);
 		
 		

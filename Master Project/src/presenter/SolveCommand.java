@@ -28,6 +28,7 @@ public class SolveCommand extends CommonModelCommand {
 	 * @param -the arguments for that method..
 	 */
 	
+	@SuppressWarnings("unused")
 	@Override
 	public void doCommand(String[] args) {
 		if (args==null || args.length < 1){
@@ -38,13 +39,13 @@ public class SolveCommand extends CommonModelCommand {
 		
 		String name = args[0];
 		String algo = getModel().getProperties().getSolvingAlgorithm().toLowerCase();
-		Position currentPosition = new Position();
+		Position currentPosition = null;
 		
 		if(args.length == 4){
 			int x = Integer.parseInt(args[1]);
 			int y = Integer.parseInt(args[2]);
 			int z = Integer.parseInt(args[3]);
-			currentPosition.setPosition(x, y, z);
+			currentPosition = new Position(x, y, z);
 		}
 		
 		SearchableMaze3dAdapter maze = getModel().getMaze(name);
@@ -55,7 +56,7 @@ public class SolveCommand extends CommonModelCommand {
 		}
 		
 		if(currentPosition == null){
-			currentPosition.setPosition(maze.getMaze().getStartPosition());
+			currentPosition= new Position(maze.getMaze().getStartPosition());
 		}
 		
 		if(!(algo.equals("dfs")) && !(algo.equals("bfs")) && !(algo.equals("breadthfirstsearch"))){	

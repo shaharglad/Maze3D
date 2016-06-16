@@ -3,7 +3,7 @@
 	<data>
 		<caching_path>solutions.txt</caching_path>
 		<max_threads>20</max_threads>
-		<solving_algorithm>DFS</solving_algorithm>
+		<solving_algorithm>bfs</solving_algorithm>
 		<generate_algorithm>myMaze</generate_algorithm>
 		<view>Gui</view>
 	</data>

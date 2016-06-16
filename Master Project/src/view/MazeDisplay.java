@@ -17,7 +17,7 @@ import algorithms.search.Solution;
 public abstract class MazeDisplay extends Canvas {
 
 	//Default maze for testing
-	int[][] mazeData={
+	/*int[][] mazeData={
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,0,0,0,0,0,0,0,1,1,0,1,0,0,1},
 			{0,0,1,1,1,1,1,0,0,1,0,1,0,1,1},
@@ -28,9 +28,9 @@ public abstract class MazeDisplay extends Canvas {
 			{1,0,1,1,0,1,1,0,1,1,0,0,0,1,1},
 			{1,0,0,0,0,0,0,0,0,1,0,1,0,0,1},
 			{1,1,1,1,1,1,1,1,1,1,1,1,0,1,1},
-		};
+		};*/
 	
-	//int[][] mazeData = null;
+	int[][] mazeData = null;
 
 	
 	/**
@@ -96,11 +96,11 @@ public abstract class MazeDisplay extends Canvas {
 	/**
 	 * taking the character step by step to the exit by timer task
 	 */
-	public abstract void WalkToExit(Solution<Position> solution);
+	public abstract void walkToExit(Solution<Position> solution);
 	
 	/**
 	 * moving the character one step to help him. 
 	 */
-	public abstract void WalkByHint(Solution<Position> solution);
+	public abstract void walkByHint(Solution<Position> solution);
 
 }
