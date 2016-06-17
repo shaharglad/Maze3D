@@ -50,7 +50,7 @@ public class Maze3D extends MazeDisplay {
 			
 			@Override
 			public void paintControl(PaintEvent e) {
-				e.gc.drawImage(backgroundImage, 10, 10);
+				
 				if(mazeData != null){
 					e.gc.setForeground(new Color(null, 0, 0, 0));
 					e.gc.setBackground(new Color(null, 0, 0, 0));
@@ -81,11 +81,14 @@ public class Maze3D extends MazeDisplay {
 					          
 				        //draw the goal position image when we arrive it
 				         if(i == goal.getZ() && j==goal.getX() && currentMaze.getCrossSectionByY(goal.getY()).equals(mazeData)){
-				        	 // e.gc.drawImage(myImage, 0, 0, 220, 220, (int)Math.round(dpoints[0]+2), (int)Math.round(dpoints[1]-cheight/2+2), (int)Math.round((w0+w1)/2/1.5), (int)Math.round(h/1.5));
-				        	  e.gc.drawString("exit", 0, 3);
+				        	  e.gc.drawImage(goalImage, 0, 0, 220, 220, (int)Math.round(dpoints[0]+2), (int)Math.round(dpoints[1]-cheight/2+2), (int)Math.round((w0+w1)/2/1.5), (int)Math.round(h/1.5));
+				        	  //e.gc.drawString("exit", 0, 3);
 				         }
 					   }
 					}
+				}
+				else {
+					e.gc.drawImage(backgroundImage, 10, 10);
 				}
 			}
 		});

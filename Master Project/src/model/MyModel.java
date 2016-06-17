@@ -373,9 +373,15 @@ public class MyModel extends Observable implements Model {
 	
 	@Override
 	public void solve(final String name, final String searcherAlgoName, final Position currentPosition) {
+		boolean check = false;
 		SearchableMaze3dAdapter maze = mazes.get(name);
+		Position pos = maze.getMaze().getStartPosition();
 		maze.getMaze().setStart(currentPosition);
-		if(mazeToSol.containsKey(maze.getMaze())){
+		if (pos.equals(maze.getMaze().getStartPosition())){
+			check =true;
+		}
+		
+		if(mazeToSol.containsKey(maze.getMaze()) && check == true){
 			obj = (String) "\nSolution for " + name + " is ready\n";
 			setChanged();
 			notifyObservers("display_message");

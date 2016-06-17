@@ -28,6 +28,13 @@ public class Generate3dMazeCommand extends CommonModelCommand {
 			}
 			
 			String name = args[0];
+			
+			if (args[1].matches("[^0-9]*") || args[2].matches("[^0-9]*") || args[3].matches("[^0-9]*")){
+				this.setMessage("Rows Cols and Depth must be a number!");
+				this.getModel().displayMessage(this.getMessage());
+				return;
+			}
+			
 			int rows = Integer.parseInt(args[1]);
 			int cols = Integer.parseInt(args[2]);
 			int depth = Integer.parseInt(args[3]);
