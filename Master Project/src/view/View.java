@@ -1,6 +1,5 @@
 package view;
 
-import java.io.Writer;
 
 import cliDisplays.DisplayType;
 

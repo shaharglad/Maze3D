@@ -28,7 +28,6 @@ public class SolveCommand extends CommonModelCommand {
 	 * @param -the arguments for that method..
 	 */
 	
-	@SuppressWarnings("unused")
 	@Override
 	public void doCommand(String[] args) {
 		if (args==null || args.length < 1){

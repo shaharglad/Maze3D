@@ -18,6 +18,7 @@ import cliDisplays.DisplayType;
 
 public class MyView extends Observable implements View,Observer {
 
+	@SuppressWarnings("unused")
 	private BufferedReader in;
 	private Writer out;
 	private CLI cli;	

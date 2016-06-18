@@ -1,7 +1,5 @@
 package presenter;
 
-import java.io.IOException;
-
 import model.Model;
 
 public class DirCommand extends CommonModelCommand {

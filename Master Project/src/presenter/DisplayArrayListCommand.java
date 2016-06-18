@@ -1,6 +1,5 @@
 package presenter;
 
-import cliDisplays.DisplayCross;
 import cliDisplays.DisplaySolution;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
@@ -15,6 +14,7 @@ public class DisplayArrayListCommand extends CommonViewCommand {
 
 	@Override
 	public void doCommand(String[] args) {
+		@SuppressWarnings("unchecked")
 		Solution<Position> solution= (Solution<Position>) this.getM().getObj();
 		if(solution != null){
 			getV().display(solution, new DisplaySolution(getV()));

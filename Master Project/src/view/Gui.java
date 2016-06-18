@@ -217,7 +217,7 @@ public class Gui extends Observable implements View {
 				
 				Label aboutL = new Label(aboutSh, SWT.NONE);
 				aboutL.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, true, 1, 1));
-				aboutL.setText("All the rigths to Shahar Gladshtein and Bar Yassure");
+				aboutL.setText("All the rigths reserved to Shahar Gladshtein and Bar Yassure");
 				aboutSh.open();
 			}
 		});
@@ -296,6 +296,7 @@ public class Gui extends Observable implements View {
 	}
 
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void display(final Object obj, DisplayType d) {
 		if(d.getClass().getCanonicalName().equals("cliDisplays.DisplayMessage")){
